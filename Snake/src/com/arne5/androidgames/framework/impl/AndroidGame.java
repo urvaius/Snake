@@ -53,7 +53,7 @@ public abstract class AndroidGame extends Activity implements Game {
 		
 		PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
-		
+	}
 		@Override
 		public void onResume(){
 			super.onResume();
@@ -65,12 +65,37 @@ public abstract class AndroidGame extends Activity implements Game {
 		public void onPause(){
 			super.onPause();
 			wakeLock.release();
-			renerView.pause();
+			renderView.pause();
 			screen.pause();
 			if(isFinishing())
 				screen.dispose();
 		}
+		public Input getInput(){
+			return input;
+		}
+		public FileIO getFileIO(){
+			return fileIO;
+		}
+		public Graphics getGraphics(){
+			return graphics;
+		}
+		public Audio getAudio(){
+			return audio;
+		}
+		public void setScreen(Screen screen){
+			if (screen ==null)
+				throw new IllegalArgumentException("Screen must not be null");
+			
+			this.screen.pause();
+			this.screen.dispose();
+			screen.resume();
+			screen.update(0);
+			this.screen=screen;
+		}
+		public Screen getCurrentScreen(){
+			return screen;
+		}
 		
 		
-	}
+	
 }
