@@ -1,4 +1,4 @@
-package com.arne5.androidgames.framework.impl;
+package com.arne5.androidgames.framework;
 import java.util.ArrayList;
 import java.util.List;
 public class Pool <T>{
